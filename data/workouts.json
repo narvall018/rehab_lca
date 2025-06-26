@@ -21,6 +21,17 @@
       "phase": "pre_op_semaine_-4_-3",
       "id": 2,
       "timestamp": "2025-06-26T13:36:04.800926"
+    },
+    {
+      "exercice": "Leg Press Bilatéral",
+      "serie": 3,
+      "poids": 0.0,
+      "reps": 0,
+      "rpe": 5,
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "id": 3,
+      "timestamp": "2025-06-26T13:36:07.682225"
     }
   ]
 }
