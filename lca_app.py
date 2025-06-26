@@ -4,9 +4,11 @@ from datetime import datetime, timedelta
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
+import requests
 import json
-import os
+import base64
 import time
+from typing import Dict, List, Optional
 
 # Configuration de la page
 st.set_page_config(
@@ -93,12 +95,172 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+# Classe GitHub Storage
+class GitHubStorage:
+    def __init__(self):
+        try:
+            self.token = st.secrets["github"]["token"]
+            self.repo = st.secrets["github"]["repo"]
+            self.branch = st.secrets["github"].get("branch", "main")
+            self.base_url = f"https://api.github.com/repos/{self.repo}/contents"
+            
+            self.headers = {
+                "Authorization": f"token {self.token}",
+                "Accept": "application/vnd.github.v3+json"
+            }
+            self.connected = True
+        except Exception as e:
+            st.error(f"❌ Configuration GitHub manquante: {str(e)}")
+            self.connected = False
+    
+    def read_file(self, filepath: str) -> Optional[Dict]:
+        """Lit un fichier JSON depuis GitHub"""
+        if not self.connected:
+            return None
+            
+        try:
+            url = f"{self.base_url}/{filepath}"
+            response = requests.get(url, headers=self.headers)
+            
+            if response.status_code == 200:
+                file_data = response.json()
+                content = base64.b64decode(file_data['content']).decode('utf-8')
+                return json.loads(content)
+            elif response.status_code == 404:
+                # Fichier n'existe pas encore - créer la structure par défaut
+                return self.create_default_file(filepath)
+            else:
+                st.error(f"Erreur lecture GitHub: {response.status_code}")
+                return None
+                
+        except Exception as e:
+            st.error(f"Erreur GitHub: {str(e)}")
+            return None
+    
+    def create_default_file(self, filepath: str) -> Dict:
+        """Crée un fichier avec structure par défaut"""
+        default_data = {}
+        
+        if "workouts.json" in filepath:
+            default_data = {"workouts": []}
+        elif "user_profile.json" in filepath:
+            default_data = {
+                "patient_weight": 65.0,
+                "patient_height": 168,
+                "surgery_date": "2025-07-28",
+                "created_at": datetime.now().isoformat()
+            }
+        elif "evaluations.json" in filepath:
+            default_data = {"evaluations": []}
+        
+        # Créer le fichier sur GitHub
+        if self.write_file(filepath, default_data, f"Create {filepath}"):
+            return default_data
+        return {}
+    
+    def write_file(self, filepath: str, data: Dict, commit_message: str = None) -> bool:
+        """Écrit un fichier JSON sur GitHub"""
+        if not self.connected:
+            return False
+            
+        try:
+            if commit_message is None:
+                commit_message = f"Update {filepath} - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+            
+            # Récupérer le SHA du fichier existant
+            url = f"{self.base_url}/{filepath}"
+            existing_response = requests.get(url, headers=self.headers)
+            sha = None
+            
+            if existing_response.status_code == 200:
+                sha = existing_response.json()['sha']
+            
+            # Préparer le contenu
+            content = json.dumps(data, indent=2, ensure_ascii=False)
+            encoded_content = base64.b64encode(content.encode('utf-8')).decode('utf-8')
+            
+            # Payload pour l'API
+            payload = {
+                "message": commit_message,
+                "content": encoded_content,
+                "branch": self.branch
+            }
+            
+            if sha:
+                payload["sha"] = sha
+            
+            # Envoyer à GitHub
+            response = requests.put(url, json=payload, headers=self.headers)
+            
+            if response.status_code in [200, 201]:
+                return True
+            else:
+                st.error(f"Erreur écriture GitHub: {response.status_code} - {response.text}")
+                return False
+                
+        except Exception as e:
+            st.error(f"Erreur écriture GitHub: {str(e)}")
+            return False
+    
+    def append_workout(self, workout_data: Dict) -> bool:
+        """Ajoute un workout à la liste existante"""
+        existing_data = self.read_file("data/workouts.json")
+        
+        if existing_data is None:
+            return False
+        
+        if "workouts" not in existing_data:
+            existing_data["workouts"] = []
+        
+        # Ajouter le nouveau workout avec timestamp
+        workout_data["id"] = len(existing_data["workouts"]) + 1
+        workout_data["timestamp"] = datetime.now().isoformat()
+        existing_data["workouts"].append(workout_data)
+        
+        # Sauvegarder
+        commit_msg = f"Add workout: {workout_data.get('exercice', 'Unknown')} - {datetime.now().strftime('%d/%m/%Y %H:%M')}"
+        return self.write_file("data/workouts.json", existing_data, commit_msg)
+    
+    def get_workouts(self) -> List[Dict]:
+        """Récupère tous les workouts"""
+        data = self.read_file("data/workouts.json")
+        if data and "workouts" in data:
+            return data["workouts"]
+        return []
+    
+    def save_user_profile(self, profile_data: Dict) -> bool:
+        """Sauvegarde le profil utilisateur"""
+        profile_data["last_updated"] = datetime.now().isoformat()
+        return self.write_file("data/user_profile.json", profile_data, "Update user profile")
+    
+    def get_user_profile(self) -> Dict:
+        """Récupère le profil utilisateur"""
+        return self.read_file("data/user_profile.json") or {}
+    
+    def save_evaluation(self, eval_data: Dict) -> bool:
+        """Sauvegarde un test d'évaluation"""
+        existing_data = self.read_file("data/evaluations.json") or {"evaluations": []}
+        
+        eval_data["id"] = len(existing_data["evaluations"]) + 1
+        eval_data["timestamp"] = datetime.now().isoformat()
+        existing_data["evaluations"].append(eval_data)
+        
+        commit_msg = f"Add evaluation: {eval_data.get('phase', 'Unknown')} - {datetime.now().strftime('%d/%m/%Y')}"
+        return self.write_file("data/evaluations.json", existing_data, commit_msg)
+    
+    def get_evaluations(self) -> List[Dict]:
+        """Récupère toutes les évaluations"""
+        data = self.read_file("data/evaluations.json")
+        if data and "evaluations" in data:
+            return data["evaluations"]
+        return []
+
 # Classe principale pour la gestion du programme
 class RehabProgram:
     def __init__(self):
         self.surgery_date = datetime(2025, 7, 28)
-        self.patient_weight = 65  # kg
-        self.patient_height = 168  # cm
+        self.patient_weight = 65.0  # float pour éviter erreurs
+        self.patient_height = 168
         
         # Programmes pré-opératoires complets
         self.pre_op_programs = {
@@ -830,8 +992,19 @@ class RehabProgram:
 def init_session_state():
     if 'program' not in st.session_state:
         st.session_state.program = RehabProgram()
+    if 'github_storage' not in st.session_state:
+        st.session_state.github_storage = GitHubStorage()
     if 'workout_history' not in st.session_state:
-        st.session_state.workout_history = []
+        # Charger depuis GitHub au démarrage
+        if st.session_state.github_storage.connected:
+            workouts = st.session_state.github_storage.get_workouts()
+            # Convertir les timestamps string en datetime
+            for workout in workouts:
+                if 'timestamp' in workout:
+                    workout['date'] = datetime.fromisoformat(workout['timestamp'])
+            st.session_state.workout_history = workouts
+        else:
+            st.session_state.workout_history = []
     if 'current_exercise_index' not in st.session_state:
         st.session_state.current_exercise_index = 0
     if 'timer_running' not in st.session_state:
@@ -844,6 +1017,74 @@ def init_session_state():
         st.session_state.current_set = 1
     if 'exercise_notes' not in st.session_state:
         st.session_state.exercise_notes = {}
+
+def save_workout_to_github(workout_data):
+    """Sauvegarde un workout sur GitHub"""
+    if not st.session_state.github_storage.connected:
+        # Fallback en session seulement
+        st.session_state.workout_history.append(workout_data)
+        return True
+    
+    github_storage = st.session_state.github_storage
+    
+    # Préparer les données (enlever 'date' car on utilise 'timestamp')
+    github_data = workout_data.copy()
+    if 'date' in github_data:
+        del github_data['date']  # Sera recréé avec timestamp
+    
+    # Sauvegarder sur GitHub
+    if github_storage.append_workout(github_data):
+        # Recharger les données dans la session
+        updated_workouts = github_storage.get_workouts()
+        for workout in updated_workouts:
+            if 'timestamp' in workout:
+                workout['date'] = datetime.fromisoformat(workout['timestamp'])
+        st.session_state.workout_history = updated_workouts
+        return True
+    return False
+
+def show_github_status():
+    """Affiche le statut de la connexion GitHub"""
+    st.sidebar.markdown("### 📁 Stockage GitHub")
+    
+    if not st.session_state.github_storage.connected:
+        st.sidebar.error("❌ Non connecté")
+        st.sidebar.caption("Vérifiez vos secrets GitHub")
+        return
+    
+    github_storage = st.session_state.github_storage
+    
+    try:
+        workouts = github_storage.get_workouts()
+        
+        col1, col2 = st.sidebar.columns(2)
+        with col1:
+            st.metric("🔗 Statut", "✅")
+        with col2:
+            st.metric("💾 Workouts", len(workouts))
+        
+        # Dernière synchro
+        if workouts:
+            last_workout = max([w.get('timestamp', '') for w in workouts])
+            if last_workout:
+                last_date = datetime.fromisoformat(last_workout)
+                days_ago = (datetime.now() - last_date).days
+                st.sidebar.caption(f"Dernière synchro: J-{days_ago}")
+        
+        # Bouton de synchro manuelle
+        if st.sidebar.button("🔄 Synchroniser"):
+            with st.spinner("Synchronisation..."):
+                updated_workouts = github_storage.get_workouts()
+                for workout in updated_workouts:
+                    if 'timestamp' in workout:
+                        workout['date'] = datetime.fromisoformat(workout['timestamp'])
+                st.session_state.workout_history = updated_workouts
+                st.success("✅ Données synchronisées!")
+                st.rerun()
+                
+    except Exception as e:
+        st.sidebar.error("❌ Erreur GitHub")
+        st.sidebar.caption(str(e)[:50] + "...")
 
 def main():
     init_session_state()
@@ -861,7 +1102,7 @@ def main():
     st.sidebar.markdown("### 👤 Profil Patient")
     col1, col2 = st.sidebar.columns(2)
     with col1:
-        st.metric("Poids", f"{st.session_state.program.patient_weight} kg")
+        st.metric("Poids", f"{st.session_state.program.patient_weight:.1f} kg")
     with col2:
         st.metric("Taille", f"{st.session_state.program.patient_height} cm")
     
@@ -880,6 +1121,9 @@ def main():
     st.sidebar.markdown("#### 🎯 Objectifs:")
     for obj in objectives[:3]:  # Limiter à 3 objectifs pour l'espace
         st.sidebar.markdown(f"• {obj}")
+    
+    # Statut GitHub
+    show_github_status()
     
     # Statistiques rapides
     if st.session_state.workout_history:
@@ -963,18 +1207,20 @@ def show_daily_program():
             if st.button("📝 Noter une observation"):
                 note = st.text_area("Observation du jour")
                 if note:
-                    st.session_state.workout_history.append({
+                    observation_data = {
                         "date": datetime.now(),
                         "exercice": "Repos - Observation",
                         "note": note,
                         "type": "repos"
-                    })
+                    }
+                    if save_workout_to_github(observation_data):
+                        st.success("✅ Observation sauvegardée!")
         
         with col2:
             st.markdown("#### 🎯 Prochaine séance")
             tomorrow = datetime.now() + timedelta(days=1)
-            tomorrow_program, _, _ = st.session_state.program.get_today_program()
-            st.info(f"Demain: {tomorrow_program}")
+            # Note: on pourrait calculer le programme de demain ici
+            st.info("Consultez demain pour le programme suivant")
         
         return
     
@@ -1013,6 +1259,7 @@ def show_daily_program():
                     "Poids utilisé (kg)", 
                     min_value=0.0, 
                     step=0.5,
+                    value=0.0,
                     key=f"poids_{st.session_state.current_exercise_index}_{st.session_state.current_set}"
                 )
             
@@ -1021,6 +1268,7 @@ def show_daily_program():
                     "Répétitions", 
                     min_value=0, 
                     step=1,
+                    value=0,
                     key=f"reps_{st.session_state.current_exercise_index}_{st.session_state.current_set}"
                 )
             
@@ -1028,6 +1276,7 @@ def show_daily_program():
                 rpe = st.selectbox(
                     "RPE (1-10)", 
                     options=list(range(1, 11)),
+                    index=4,  # défaut à 5
                     key=f"rpe_{st.session_state.current_exercise_index}_{st.session_state.current_set}"
                 )
             
@@ -1087,7 +1336,7 @@ def show_daily_program():
             with col_ctrl1:
                 if st.button("✅ Série OK"):
                     # Enregistrer la série
-                    st.session_state.workout_history.append({
+                    workout_data = {
                         "date": datetime.now(),
                         "exercice": exercise["nom"],
                         "serie": st.session_state.current_set,
@@ -1096,17 +1345,24 @@ def show_daily_program():
                         "rpe": rpe,
                         "note": note_exercice,
                         "phase": phase
-                    })
+                    }
                     
-                    # Passer à la série suivante ou exercice suivant
-                    if st.session_state.current_set < exercise["series"]:
-                        st.session_state.current_set += 1
-                    else:
-                        st.session_state.current_set = 1
-                        st.session_state.current_exercise_index += 1
-                    
-                    st.session_state.timer_running = False
-                    st.rerun()
+                    # Sauvegarder sur GitHub ET en session
+                    with st.spinner("💾 Sauvegarde en cours..."):
+                        if save_workout_to_github(workout_data):
+                            st.success("✅ Données sauvegardées !")
+                            
+                            # Passer à la série suivante ou exercice suivant
+                            if st.session_state.current_set < exercise["series"]:
+                                st.session_state.current_set += 1
+                            else:
+                                st.session_state.current_set = 1
+                                st.session_state.current_exercise_index += 1
+                            
+                            st.session_state.timer_running = False
+                            st.rerun()
+                        else:
+                            st.error("❌ Erreur sauvegarde")
             
             with col_ctrl2:
                 if st.button("⏭️ Exercice suivant"):
@@ -1139,7 +1395,7 @@ def show_daily_program():
                 with col2:
                     st.metric("Séries totales", len(df_today))
                 with col3:
-                    if 'poids' in df_today.columns:
+                    if 'poids' in df_today.columns and 'reps' in df_today.columns:
                         total_tonnage = (df_today['poids'] * df_today['reps']).sum()
                         st.metric("Tonnage", f"{total_tonnage:.0f} kg")
         
@@ -1154,18 +1410,20 @@ def show_daily_program():
         with col2:
             if st.button("📝 Ajouter un commentaire global"):
                 global_note = st.text_area("Commentaire sur la séance")
-                if global_note:
-                    st.session_state.workout_history.append({
+                if global_note and st.button("Sauvegarder commentaire"):
+                    comment_data = {
                         "date": datetime.now(),
                         "exercice": "Commentaire séance",
                         "note": global_note,
                         "type": "commentaire"
-                    })
+                    }
+                    if save_workout_to_github(comment_data):
+                        st.success("✅ Commentaire sauvegardé!")
     
     # Conseils contextuels selon la phase
     st.markdown("### 💡 Conseils Spécialisés")
     phase_advice = {
-        "pre_op": "🎯 **Pré-opératoire :** Chaque séance optimise votre récupération future. Qualité > Quantité !",
+        "pre_op": "🎯 **Pré-opératoire :** Chaque entraînement optimise votre récupération future. Qualité > Quantité !",
         "post_op_semaine_1": "⚠️ **Post-op précoce :** Douceur absolue. La patience d'aujourd'hui = performance de demain.",
         "post_op_semaine_2-3": "🔄 **Mobilisation :** Progression graduelle. Respectez vos sensations articulaires.",
         "post_op_semaine_4-6": "📈 **Renforcement :** Retour de la force ! Symétrie et contrôle avant tout.",
@@ -1345,6 +1603,7 @@ def show_progress_tracking():
         with col2:
             end_date = st.date_input("Date fin", value=df['date'].max().date())
         with col3:
+            exercices_uniques = df['exercice'].unique()
             exercice_filter = st.multiselect("Exercices", exercices_uniques, default=exercices_uniques[:5])
         
         # Données filtrées
@@ -1467,23 +1726,41 @@ def show_evaluation_tests():
         # Soumission
         if st.form_submit_button("💾 Enregistrer les résultats"):
             # Sauvegarder dans l'historique
-            st.session_state.workout_history.append({
+            eval_data = {
                 "date": datetime.combine(test_date, datetime.min.time()),
                 "exercice": f"Test d'évaluation - {phase}",
                 "results": test_results,
                 "notes": notes,
                 "type": "evaluation"
-            })
-            st.success("✅ Résultats enregistrés avec succès!")
+            }
+            
+            if st.session_state.github_storage.connected:
+                if st.session_state.github_storage.save_evaluation(eval_data):
+                    st.success("✅ Résultats sauvegardés sur GitHub!")
+                else:
+                    st.error("❌ Erreur sauvegarde GitHub")
+            else:
+                st.session_state.workout_history.append(eval_data)
+                st.success("✅ Résultats enregistrés localement!")
     
     # Historique des tests
     st.markdown("### 📈 Historique des Évaluations")
     
-    eval_history = [w for w in st.session_state.workout_history if w.get('type') == 'evaluation']
+    if st.session_state.github_storage.connected:
+        eval_history = st.session_state.github_storage.get_evaluations()
+    else:
+        eval_history = [w for w in st.session_state.workout_history if w.get('type') == 'evaluation']
     
     if eval_history:
         for i, eval_data in enumerate(reversed(eval_history[-5:])):  # 5 derniers tests
-            with st.expander(f"Test du {eval_data['date'].strftime('%d/%m/%Y')} - {eval_data['exercice']}"):
+            eval_date = eval_data.get('timestamp', eval_data.get('date', 'Date inconnue'))
+            if isinstance(eval_date, str):
+                try:
+                    eval_date = datetime.fromisoformat(eval_date).strftime('%d/%m/%Y')
+                except:
+                    eval_date = str(eval_date)[:10]
+            
+            with st.expander(f"Test du {eval_date}"):
                 if 'results' in eval_data:
                     for test_name, result in eval_data['results'].items():
                         if 'deficit_percent' in result:
@@ -1844,9 +2121,9 @@ def show_settings():
             st.markdown("#### 📊 Données Physiques")
             new_weight = st.number_input(
                 "Poids (kg)", 
-                value=st.session_state.program.patient_weight, 
-                min_value=40, 
-                max_value=150,
+                value=float(st.session_state.program.patient_weight), 
+                min_value=40.0, 
+                max_value=150.0,
                 step=0.5
             )
             
@@ -1854,7 +2131,8 @@ def show_settings():
                 "Taille (cm)", 
                 value=st.session_state.program.patient_height, 
                 min_value=140, 
-                max_value=220
+                max_value=220,
+                step=1
             )
             
             # Calcul IMC
@@ -1894,7 +2172,25 @@ def show_settings():
         if st.button("💾 Sauvegarder le profil", type="primary"):
             st.session_state.program.patient_weight = new_weight
             st.session_state.program.patient_height = new_height
-            st.success("✅ Profil mis à jour avec succès !")
+            
+            # Sauvegarder sur GitHub
+            profile_data = {
+                "patient_weight": new_weight,
+                "patient_height": new_height,
+                "niveau_sportif": niveau_sportif,
+                "sport_principal": sport_principal,
+                "objectif_retour": objectif_retour,
+                "premiere_rupture": premiere_rupture,
+                "chirurgie_anterieure": chirurgie_anterieure
+            }
+            
+            if st.session_state.github_storage.connected:
+                if st.session_state.github_storage.save_user_profile(profile_data):
+                    st.success("✅ Profil sauvegardé sur GitHub!")
+                else:
+                    st.error("❌ Erreur sauvegarde GitHub")
+            else:
+                st.success("✅ Profil mis à jour localement!")
     
     with tab2:
         st.subheader("📅 Gestion du Planning")
@@ -1978,7 +2274,7 @@ def show_settings():
                 # Options d'export
                 format_export = st.selectbox(
                     "Format d'export",
-                    ["CSV", "Excel", "JSON"]
+                    ["CSV", "JSON"]
                 )
                 
                 periode_export = st.selectbox(
@@ -2002,11 +2298,6 @@ def show_settings():
                     data_export = df_export.to_csv(index=False)
                     filename = f"rehab_lca_{timestamp}.csv"
                     mime_type = "text/csv"
-                elif format_export == "Excel":
-                    # Pour Excel, on utiliserait to_excel() mais nécessite openpyxl
-                    data_export = df_export.to_csv(index=False)
-                    filename = f"rehab_lca_{timestamp}.csv"
-                    mime_type = "text/csv"
                 else:  # JSON
                     data_export = df_export.to_json(orient='records', date_format='iso')
                     filename = f"rehab_lca_{timestamp}.json"
@@ -2022,7 +2313,8 @@ def show_settings():
                 # Statistiques d'export
                 st.write(f"📊 **Résumé de l'export:**")
                 st.write(f"- Entrées: {len(df_export)}")
-                st.write(f"- Période: {df_export['date'].min().strftime('%d/%m/%Y')} → {df_export['date'].max().strftime('%d/%m/%Y')}")
+                if not df_export.empty:
+                    st.write(f"- Période: {df_export['date'].min().strftime('%d/%m/%Y')} → {df_export['date'].max().strftime('%d/%m/%Y')}")
                 
             else:
                 st.info("Aucune donnée à exporter pour le moment")
