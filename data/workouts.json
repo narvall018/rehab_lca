@@ -1,0 +1,26 @@
+{
+  "workouts": [
+    {
+      "exercice": "Leg Press Bilatéral",
+      "serie": 1,
+      "poids": 2.0,
+      "reps": 5,
+      "rpe": 5,
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "id": 1,
+      "timestamp": "2025-06-26T15:15:33.815076"
+    },
+    {
+      "exercice": "Leg Press Bilatéral",
+      "serie": 2,
+      "poids": 0.0,
+      "reps": 0,
+      "rpe": 5,
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "id": 2,
+      "timestamp": "2025-06-26T15:18:08.352671"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "patient_weight": 65.0,
+  "patient_height": 168,
+  "niveau_sportif": "Compétition amateur",
+  "sport_principal": "Football",
+  "objectif_retour": "Sport régulier",
+  "premiere_rupture": false,
+  "chirurgie_anterieure": true,
+  "last_updated": "2025-06-26T15:17:03.255413"
+}
