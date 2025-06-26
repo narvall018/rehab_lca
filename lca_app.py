@@ -1125,17 +1125,42 @@ def main():
     # Statut GitHub
     show_github_status()
     
-    # Statistiques rapides
+    # Statistiques rapides CORRIGÉES
     if st.session_state.workout_history:
         df = pd.DataFrame(st.session_state.workout_history)
+        # Filtrer les vrais exercices (pas les commentaires/repos)
+        df_exercises = df[(df['exercice'] != 'Commentaire séance') & 
+                         (df['exercice'] != 'Repos - Observation') & 
+                         (~df['exercice'].str.contains('Test d\'évaluation', na=False))]
+        
         st.sidebar.markdown("### 📈 Stats Rapides")
         col1, col2 = st.sidebar.columns(2)
+        
         with col1:
-            st.metric("Séances", len(df))
+            # Nombre de séances = nombre de jours uniques d'entraînement
+            if not df_exercises.empty:
+                seances_uniques = df_exercises['date'].dt.date.nunique()
+                st.metric("🏋️ Séances", seances_uniques)
+            else:
+                st.metric("🏋️ Séances", 0)
+        
         with col2:
-            if not df.empty:
-                last_workout = (datetime.now() - df['date'].max()).days
-                st.metric("Dernière", f"J-{last_workout}")
+            # Nombre de séries = nombre total d'entrées d'exercices
+            total_series = len(df_exercises)
+            st.metric("📊 Séries", total_series)
+        
+        # Informations supplémentaires
+        if not df_exercises.empty:
+            last_workout_date = df_exercises['date'].max()
+            days_since = (datetime.now() - last_workout_date).days
+            st.sidebar.caption(f"Dernière séance: J-{days_since}")
+            
+            # Afficher l'exercice en cours s'il y en a un
+            session_name, exercises, _ = st.session_state.program.get_today_program()
+            if exercises and st.session_state.current_exercise_index < len(exercises):
+                current_ex = exercises[st.session_state.current_exercise_index]
+                st.sidebar.caption(f"En cours: {current_ex['nom']}")
+                st.sidebar.caption(f"Série {st.session_state.current_set}/{current_ex['series']}")
     
     # Navigation avec icônes
     page = st.sidebar.selectbox(
@@ -1251,7 +1276,7 @@ def show_daily_program():
         
         with col1:
             # Suivi des séries
-            st.markdown(f"#### 📊 Série {st.session_state.current_set}")
+            st.markdown(f"#### 📊 Série {st.session_state.current_set}/{exercise['series']}")
             
             col_perf1, col_perf2, col_perf3 = st.columns(3)
             with col_perf1:
@@ -1350,7 +1375,7 @@ def show_daily_program():
                     # Sauvegarder sur GitHub ET en session
                     with st.spinner("💾 Sauvegarde en cours..."):
                         if save_workout_to_github(workout_data):
-                            st.success("✅ Données sauvegardées !")
+                            st.success("✅ Série sauvegardée !")
                             
                             # Passer à la série suivante ou exercice suivant
                             if st.session_state.current_set < exercise["series"]:
