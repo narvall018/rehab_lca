@@ -1,3 +1,21 @@
 {
-  "workouts": []
+  "workouts": [
+    {
+      "exercice": "Squat Goblet",
+      "serie": 1,
+      "poids": 16.0,
+      "reps": 12,
+      "rpe": 3,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps",
+        "Fessiers",
+        "Core"
+      ],
+      "id": 1,
+      "timestamp": "2025-06-27T16:51:37.925004"
+    }
+  ]
 }
