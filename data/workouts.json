@@ -101,6 +101,21 @@
       ],
       "id": 6,
       "timestamp": "2025-06-27T17:05:43.046455"
+    },
+    {
+      "exercice": "Leg Extension unilatéral",
+      "serie": 1,
+      "poids": 15.0,
+      "reps": 12,
+      "rpe": 4,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps"
+      ],
+      "id": 7,
+      "timestamp": "2025-06-27T17:11:22.074375"
     }
   ]
 }
