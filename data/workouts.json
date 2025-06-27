@@ -84,6 +84,23 @@
       ],
       "id": 5,
       "timestamp": "2025-06-27T17:03:22.113035"
+    },
+    {
+      "exercice": "Squat Bulgare",
+      "serie": 3,
+      "poids": 6.0,
+      "reps": 10,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps",
+        "Fessiers",
+        "Stabilisateurs"
+      ],
+      "id": 6,
+      "timestamp": "2025-06-27T17:05:43.046455"
     }
   ]
 }
