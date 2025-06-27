@@ -17,6 +17,12 @@
       "name": "🏁 Première Séance",
       "xp": 100,
       "timestamp": "2025-06-27T17:05:45.256026"
+    },
+    {
+      "achievement_id": "first_workout",
+      "name": "🏁 Première Séance",
+      "xp": 100,
+      "timestamp": "2025-06-27T17:11:24.334557"
     }
   ],
   "badges": []
