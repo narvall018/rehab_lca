@@ -2254,26 +2254,29 @@ def show_daily_program():
             unsafe_allow_html=True
         )
     
+
+    
+    
     with col2:
         if exercises:
             st.markdown(
                 f"""
-                <div class="metric-card">
+                <div class="metric-card" style="background-color: #7E57C2; color: white; border-radius: 8px; padding: 10px; text-align: center;">
                     <div style="font-size: 2rem;">{len(exercises)}</div>
-                    <div style="color: #666;">Exercices</div>
+                    <div style="color: rgba(255, 255, 255, 0.8);">Exercices</div>
                 </div>
                 """,
                 unsafe_allow_html=True
             )
-    
+            
     with col3:
         if exercises:
             progress_pct = (st.session_state.current_exercise_index / len(exercises)) * 100
             st.markdown(
                 f"""
-                <div class="metric-card">
+                <div class="metric-card" style="background-color: #7E57C2; color: white; border-radius: 8px; padding: 10px; text-align: center;">
                     <div style="font-size: 2rem;">{progress_pct:.0f}%</div>
-                    <div style="color: #666;">Complété</div>
+                    <div style="color: rgba(255, 255, 255, 0.8);">Complété</div>
                 </div>
                 """,
                 unsafe_allow_html=True
