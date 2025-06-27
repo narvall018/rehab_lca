@@ -325,6 +325,41 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+def display_exercise_card(exercise, index, current_set):
+    """Affiche une carte d'exercice en utilisant les composants natifs de Streamlit"""
+    
+    # En-tête avec nom et difficulté
+    col1, col2 = st.columns([4, 1])
+    with col1:
+        st.markdown(f"### 🎯 {exercise['nom']}")
+    with col2:
+        difficulty_stars = "⭐" * exercise.get("difficulte", 3)
+        st.markdown(f"**Difficulté:** {difficulty_stars}")
+    
+    # Description
+    st.markdown(f"*{exercise['description']}*")
+    
+    # Informations d'exercice en colonnes
+    col1, col2 = st.columns(2)
+    with col1:
+        st.markdown(f"**🔢 Volume:** {exercise['series']} séries × {exercise['reps']} reps")
+        st.markdown(f"**⚖️ Charge:** {exercise['charge']}")
+    with col2:
+        st.markdown(f"**⏱️ Repos:** {exercise['repos']}")
+        st.markdown(f"**🎯 Focus:** {exercise['focus']}")
+    
+    # Conseils dans un encadré
+    st.info(f"💡 **Conseils:** {exercise['conseils']}")
+    
+    # Muscles ciblés
+    st.markdown("**🏃 Muscles ciblés:**")
+    muscles_text = ", ".join([f"_{muscle}_" for muscle in exercise.get("muscles", [])])
+    st.markdown(muscles_text)
+    
+    # Série actuelle
+    st.sidebar.markdown(f"### Série actuelle")
+    st.sidebar.markdown(f"## {current_set}/{exercise['series']}")
+
 # Classe GitHub Storage (identique mais avec améliorations)
 class GitHubStorage:
     def __init__(self):
@@ -2366,11 +2401,13 @@ def show_daily_program():
 
         
         # Affichage de l'exercice avec carte moderne
-        components.html(
-            create_exercise_card_html(exercise, st.session_state.current_exercise_index, st.session_state.current_set),
-            height=400
-        )
+        # components.html(
+        #     create_exercise_card_html(exercise, st.session_state.current_exercise_index, st.session_state.current_set),
+        #     height=400
+        # )
         
+        display_exercise_card(exercise, st.session_state.current_exercise_index, st.session_state.current_set)
+
         # Vidéo de démonstration si disponible
         if exercise["nom"] in st.session_state.program.exercise_videos:
             with st.expander("🎥 Voir la démonstration vidéo", expanded=False):
