@@ -325,40 +325,76 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+
 def display_exercise_card(exercise, index, current_set):
-    """Affiche une carte d'exercice en utilisant les composants natifs de Streamlit"""
+    """Affiche une carte d'exercice sans expander, titre gros et reste modéré"""
     
-    # En-tête avec nom et difficulté
-    col1, col2 = st.columns([4, 1])
-    with col1:
-        st.markdown(f"### 🎯 {exercise['nom']}")
-    with col2:
-        difficulty_stars = "⭐" * exercise.get("difficulte", 3)
-        st.markdown(f"**Difficulté:** {difficulty_stars}")
+    # Titre principal en très gros
+    st.markdown(f"## 🎯 {exercise['nom']}")
+    st.markdown(f"#### Série {current_set}/{exercise['series']}")
+    
+    # Difficulté 
+    difficulty_stars = "⭐" * exercise.get("difficulte", 3)
+    st.markdown(f"**Difficulté:** {difficulty_stars}")
     
     # Description
     st.markdown(f"*{exercise['description']}*")
     
+    # Séparateur visuel pour délimiter les sections
+    st.markdown("---")
+    
     # Informations d'exercice en colonnes
     col1, col2 = st.columns(2)
     with col1:
-        st.markdown(f"**🔢 Volume:** {exercise['series']} séries × {exercise['reps']} reps")
-        st.markdown(f"**⚖️ Charge:** {exercise['charge']}")
+        st.markdown(f"### 🔢 Volume:")
+        st.markdown(f"{exercise['series']} séries × {exercise['reps']}")
+        st.markdown(f"### ⚖️ Charge:")
+        st.markdown(f"{exercise['charge']}")
     with col2:
-        st.markdown(f"**⏱️ Repos:** {exercise['repos']}")
-        st.markdown(f"**🎯 Focus:** {exercise['focus']}")
+        st.markdown(f"### ⏱️ Repos:")
+        st.markdown(f"{exercise['repos']}")
+        st.markdown(f"### 🎯 Focus:")
+        st.markdown(f"{exercise['focus']}")
     
     # Conseils dans un encadré
-    st.info(f"💡 **Conseils:** {exercise['conseils']}")
+    st.info(f"### 💡 Conseils:\n{exercise['conseils']}")
     
     # Muscles ciblés
-    st.markdown("**🏃 Muscles ciblés:**")
-    muscles_text = ", ".join([f"_{muscle}_" for muscle in exercise.get("muscles", [])])
+    st.markdown("### 🏃 Muscles ciblés:")
+    muscles_text = ", ".join([f"*{muscle}*" for muscle in exercise.get("muscles", [])])
     st.markdown(muscles_text)
+
+def display_exercise_card_with_expander(exercise, index, current_set):
+    """Affiche une carte d'exercice avec un expander et texte agrandi"""
     
-    # Série actuelle
-    st.sidebar.markdown(f"### Série actuelle")
-    st.sidebar.markdown(f"## {current_set}/{exercise['series']}")
+    with st.expander(f"🎯 {exercise['nom']} - Série {current_set}/{exercise['series']}", expanded=True):
+        # Difficulté avec texte plus grand
+        difficulty_stars = "⭐" * exercise.get("difficulte", 3)
+        st.markdown(f"## Difficulté: {difficulty_stars}")
+        
+        # Description avec texte plus grand
+        st.markdown(f"### *{exercise['description']}*")
+        
+        # Informations d'exercice en colonnes
+        col1, col2 = st.columns(2)
+        with col1:
+            st.markdown(f"## 🔢 Volume:")
+            st.markdown(f"### {exercise['series']} séries × {exercise['reps']}")
+            st.markdown(f"## ⚖️ Charge:")
+            st.markdown(f"### {exercise['charge']}")
+        with col2:
+            st.markdown(f"## ⏱️ Repos:")
+            st.markdown(f"### {exercise['repos']}")
+            st.markdown(f"## 🎯 Focus:")
+            st.markdown(f"### {exercise['focus']}")
+        
+        # Conseils dans un encadré avec texte plus grand
+        st.info(f"## 💡 Conseils: \n### {exercise['conseils']}")
+        
+        # Muscles ciblés avec texte plus grand
+        st.markdown("## 🏃 Muscles ciblés:")
+        muscles_text = ", ".join([f"*{muscle}*" for muscle in exercise.get("muscles", [])])
+        st.markdown(f"### {muscles_text}")
 
 # Classe GitHub Storage (identique mais avec améliorations)
 class GitHubStorage:
@@ -2405,6 +2441,9 @@ def show_daily_program():
         #     create_exercise_card_html(exercise, st.session_state.current_exercise_index, st.session_state.current_set),
         #     height=400
         # )
+                                     
+          
+               
         
         display_exercise_card(exercise, st.session_state.current_exercise_index, st.session_state.current_set)
 
