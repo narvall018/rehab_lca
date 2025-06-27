@@ -192,6 +192,22 @@
       ],
       "id": 12,
       "timestamp": "2025-06-27T17:19:44.608855"
+    },
+    {
+      "exercice": "Pont fessier unilatéral",
+      "serie": 2,
+      "poids": 0.0,
+      "reps": 15,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Fessiers",
+        "Ischio-jambiers"
+      ],
+      "id": 13,
+      "timestamp": "2025-06-27T17:19:50.309036"
     }
   ]
 }
