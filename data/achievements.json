@@ -1,4 +1,11 @@
 {
-  "achievements": [],
+  "achievements": [
+    {
+      "achievement_id": "first_workout",
+      "name": "🏁 Première Séance",
+      "xp": 100,
+      "timestamp": "2025-06-27T16:53:20.309329"
+    }
+  ],
   "badges": []
 }
