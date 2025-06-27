@@ -240,6 +240,22 @@
       ],
       "id": 15,
       "timestamp": "2025-06-27T17:56:37.372342"
+    },
+    {
+      "exercice": "Gainage latéral",
+      "serie": 1,
+      "poids": 0.0,
+      "reps": 30,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Obliques",
+        "Core"
+      ],
+      "id": 16,
+      "timestamp": "2025-06-27T17:56:50.299007"
     }
   ]
 }
