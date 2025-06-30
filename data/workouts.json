@@ -491,6 +491,23 @@
       ],
       "id": 30,
       "timestamp": "2025-06-30T17:06:42.691474"
+    },
+    {
+      "exercice": "Soulevé de terre roumain",
+      "serie": 2,
+      "poids": 40.0,
+      "reps": 10,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Ischio-jambiers",
+        "Fessiers",
+        "Érecteurs spinaux"
+      ],
+      "id": 31,
+      "timestamp": "2025-06-30T17:06:50.626746"
     }
   ]
 }
