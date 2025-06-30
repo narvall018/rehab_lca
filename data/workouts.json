@@ -321,6 +321,23 @@
       ],
       "id": 20,
       "timestamp": "2025-06-30T16:44:00.597076"
+    },
+    {
+      "exercice": "Leg Press Bilatéral",
+      "serie": 2,
+      "poids": 85.0,
+      "reps": 12,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps",
+        "Fessiers",
+        "Ischio-jambiers"
+      ],
+      "id": 21,
+      "timestamp": "2025-06-30T16:44:05.969704"
     }
   ]
 }
