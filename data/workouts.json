@@ -525,6 +525,21 @@
       ],
       "id": 32,
       "timestamp": "2025-06-30T17:06:57.202100"
+    },
+    {
+      "exercice": "Leg Curl unilatéral machine",
+      "serie": 1,
+      "poids": 15.0,
+      "reps": 12,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Ischio-jambiers"
+      ],
+      "id": 33,
+      "timestamp": "2025-06-30T17:07:11.504331"
     }
   ]
 }
