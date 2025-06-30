@@ -423,6 +423,23 @@
       ],
       "id": 26,
       "timestamp": "2025-06-30T16:58:40.947313"
+    },
+    {
+      "exercice": "Fentes avant alternées",
+      "serie": 2,
+      "poids": 8.0,
+      "reps": 10,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps",
+        "Fessiers",
+        "Core"
+      ],
+      "id": 27,
+      "timestamp": "2025-06-30T16:58:50.880404"
     }
   ]
 }
