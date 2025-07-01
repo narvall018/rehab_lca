@@ -574,6 +574,23 @@
       ],
       "id": 35,
       "timestamp": "2025-07-01T17:20:11.954435"
+    },
+    {
+      "exercice": "Squat Goblet",
+      "serie": 3,
+      "poids": 16.0,
+      "reps": 12,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps",
+        "Fessiers",
+        "Core"
+      ],
+      "id": 36,
+      "timestamp": "2025-07-01T17:20:20.719032"
     }
   ]
 }
