@@ -1,3 +1,726 @@
 {
-  "workouts": []
+  "workouts": [
+    {
+      "exercice": "Squat Goblet",
+      "serie": 1,
+      "poids": 16.0,
+      "reps": 12,
+      "rpe": 3,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps",
+        "Fessiers",
+        "Core"
+      ],
+      "id": 1,
+      "timestamp": "2025-06-27T16:51:37.925004"
+    },
+    {
+      "exercice": "Squat Goblet",
+      "serie": 1,
+      "poids": 16.0,
+      "reps": 12,
+      "rpe": 3,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps",
+        "Fessiers",
+        "Core"
+      ],
+      "id": 2,
+      "timestamp": "2025-06-27T16:53:17.481526"
+    },
+    {
+      "exercice": "Squat Bulgare",
+      "serie": 1,
+      "poids": 12.0,
+      "reps": 10,
+      "rpe": 7,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps",
+        "Fessiers",
+        "Stabilisateurs"
+      ],
+      "id": 3,
+      "timestamp": "2025-06-27T17:03:03.180542"
+    },
+    {
+      "exercice": "Squat Bulgare",
+      "serie": 2,
+      "poids": 6.0,
+      "reps": 10,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps",
+        "Fessiers",
+        "Stabilisateurs"
+      ],
+      "id": 4,
+      "timestamp": "2025-06-27T17:03:16.462830"
+    },
+    {
+      "exercice": "Squat Bulgare",
+      "serie": 3,
+      "poids": 6.0,
+      "reps": 10,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps",
+        "Fessiers",
+        "Stabilisateurs"
+      ],
+      "id": 5,
+      "timestamp": "2025-06-27T17:03:22.113035"
+    },
+    {
+      "exercice": "Squat Bulgare",
+      "serie": 3,
+      "poids": 6.0,
+      "reps": 10,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps",
+        "Fessiers",
+        "Stabilisateurs"
+      ],
+      "id": 6,
+      "timestamp": "2025-06-27T17:05:43.046455"
+    },
+    {
+      "exercice": "Leg Extension unilatéral",
+      "serie": 1,
+      "poids": 15.0,
+      "reps": 12,
+      "rpe": 4,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps"
+      ],
+      "id": 7,
+      "timestamp": "2025-06-27T17:11:22.074375"
+    },
+    {
+      "exercice": "Leg Extension unilatéral",
+      "serie": 2,
+      "poids": 12.0,
+      "reps": 12,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps"
+      ],
+      "id": 8,
+      "timestamp": "2025-06-27T17:11:32.520124"
+    },
+    {
+      "exercice": "Leg Extension unilatéral",
+      "serie": 3,
+      "poids": 12.0,
+      "reps": 12,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps"
+      ],
+      "id": 9,
+      "timestamp": "2025-06-27T17:11:38.939514"
+    },
+    {
+      "exercice": "Leg Extension unilatéral",
+      "serie": 3,
+      "poids": 12.0,
+      "reps": 12,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps"
+      ],
+      "id": 10,
+      "timestamp": "2025-06-27T17:17:22.468160"
+    },
+    {
+      "exercice": "Leg Extension unilatéral",
+      "serie": 3,
+      "poids": 12.0,
+      "reps": 12,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps"
+      ],
+      "id": 11,
+      "timestamp": "2025-06-27T17:19:32.936695"
+    },
+    {
+      "exercice": "Pont fessier unilatéral",
+      "serie": 1,
+      "poids": 0.0,
+      "reps": 15,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Fessiers",
+        "Ischio-jambiers"
+      ],
+      "id": 12,
+      "timestamp": "2025-06-27T17:19:44.608855"
+    },
+    {
+      "exercice": "Pont fessier unilatéral",
+      "serie": 2,
+      "poids": 0.0,
+      "reps": 15,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Fessiers",
+        "Ischio-jambiers"
+      ],
+      "id": 13,
+      "timestamp": "2025-06-27T17:19:50.309036"
+    },
+    {
+      "exercice": "Pont fessier unilatéral",
+      "serie": 3,
+      "poids": 0.0,
+      "reps": 15,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Fessiers",
+        "Ischio-jambiers"
+      ],
+      "id": 14,
+      "timestamp": "2025-06-27T17:19:59.577361"
+    },
+    {
+      "exercice": "Pont fessier unilatéral",
+      "serie": 3,
+      "poids": 0.0,
+      "reps": 15,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Fessiers",
+        "Ischio-jambiers"
+      ],
+      "id": 15,
+      "timestamp": "2025-06-27T17:56:37.372342"
+    },
+    {
+      "exercice": "Gainage latéral",
+      "serie": 1,
+      "poids": 0.0,
+      "reps": 30,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Obliques",
+        "Core"
+      ],
+      "id": 16,
+      "timestamp": "2025-06-27T17:56:50.299007"
+    },
+    {
+      "exercice": "Gainage latéral",
+      "serie": 2,
+      "poids": 0.0,
+      "reps": 30,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Obliques",
+        "Core"
+      ],
+      "id": 17,
+      "timestamp": "2025-06-27T17:57:01.553843"
+    },
+    {
+      "exercice": "Gainage latéral",
+      "serie": 3,
+      "poids": 0.0,
+      "reps": 30,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Obliques",
+        "Core"
+      ],
+      "id": 18,
+      "timestamp": "2025-06-27T17:57:09.873622"
+    },
+    {
+      "exercice": "Gainage latéral",
+      "serie": 3,
+      "poids": 0.0,
+      "reps": 30,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Obliques",
+        "Core"
+      ],
+      "id": 19,
+      "timestamp": "2025-06-27T23:00:02.117214"
+    },
+    {
+      "exercice": "Leg Press Bilatéral",
+      "serie": 1,
+      "poids": 90.0,
+      "reps": 12,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps",
+        "Fessiers",
+        "Ischio-jambiers"
+      ],
+      "id": 20,
+      "timestamp": "2025-06-30T16:44:00.597076"
+    },
+    {
+      "exercice": "Leg Press Bilatéral",
+      "serie": 2,
+      "poids": 85.0,
+      "reps": 12,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps",
+        "Fessiers",
+        "Ischio-jambiers"
+      ],
+      "id": 21,
+      "timestamp": "2025-06-30T16:44:05.969704"
+    },
+    {
+      "exercice": "Leg Press Bilatéral",
+      "serie": 3,
+      "poids": 85.0,
+      "reps": 12,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps",
+        "Fessiers",
+        "Ischio-jambiers"
+      ],
+      "id": 22,
+      "timestamp": "2025-06-30T16:44:14.719617"
+    },
+    {
+      "exercice": "Leg Press Bilatéral",
+      "serie": 4,
+      "poids": 85.0,
+      "reps": 12,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps",
+        "Fessiers",
+        "Ischio-jambiers"
+      ],
+      "id": 23,
+      "timestamp": "2025-06-30T16:44:24.760732"
+    },
+    {
+      "exercice": "Leg Press Bilatéral",
+      "serie": 4,
+      "poids": 85.0,
+      "reps": 12,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps",
+        "Fessiers",
+        "Ischio-jambiers"
+      ],
+      "id": 24,
+      "timestamp": "2025-06-30T16:58:27.571709"
+    },
+    {
+      "exercice": "Fentes avant alternées",
+      "serie": 1,
+      "poids": 8.0,
+      "reps": 10,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps",
+        "Fessiers",
+        "Core"
+      ],
+      "id": 25,
+      "timestamp": "2025-06-30T16:58:34.121547"
+    },
+    {
+      "exercice": "Fentes avant alternées",
+      "serie": 1,
+      "poids": 8.0,
+      "reps": 10,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps",
+        "Fessiers",
+        "Core"
+      ],
+      "id": 26,
+      "timestamp": "2025-06-30T16:58:40.947313"
+    },
+    {
+      "exercice": "Fentes avant alternées",
+      "serie": 2,
+      "poids": 8.0,
+      "reps": 10,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps",
+        "Fessiers",
+        "Core"
+      ],
+      "id": 27,
+      "timestamp": "2025-06-30T16:58:50.880404"
+    },
+    {
+      "exercice": "Fentes avant alternées",
+      "serie": 3,
+      "poids": 8.0,
+      "reps": 10,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps",
+        "Fessiers",
+        "Core"
+      ],
+      "id": 28,
+      "timestamp": "2025-06-30T16:59:01.466317"
+    },
+    {
+      "exercice": "Fentes avant alternées",
+      "serie": 3,
+      "poids": 8.0,
+      "reps": 10,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps",
+        "Fessiers",
+        "Core"
+      ],
+      "id": 29,
+      "timestamp": "2025-06-30T17:06:37.015916"
+    },
+    {
+      "exercice": "Soulevé de terre roumain",
+      "serie": 1,
+      "poids": 40.0,
+      "reps": 10,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Ischio-jambiers",
+        "Fessiers",
+        "Érecteurs spinaux"
+      ],
+      "id": 30,
+      "timestamp": "2025-06-30T17:06:42.691474"
+    },
+    {
+      "exercice": "Soulevé de terre roumain",
+      "serie": 2,
+      "poids": 40.0,
+      "reps": 10,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Ischio-jambiers",
+        "Fessiers",
+        "Érecteurs spinaux"
+      ],
+      "id": 31,
+      "timestamp": "2025-06-30T17:06:50.626746"
+    },
+    {
+      "exercice": "Soulevé de terre roumain",
+      "serie": 3,
+      "poids": 40.0,
+      "reps": 10,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Ischio-jambiers",
+        "Fessiers",
+        "Érecteurs spinaux"
+      ],
+      "id": 32,
+      "timestamp": "2025-06-30T17:06:57.202100"
+    },
+    {
+      "exercice": "Leg Curl unilatéral machine",
+      "serie": 1,
+      "poids": 15.0,
+      "reps": 12,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Ischio-jambiers"
+      ],
+      "id": 33,
+      "timestamp": "2025-06-30T17:07:11.504331"
+    },
+    {
+      "exercice": "Squat Goblet",
+      "serie": 1,
+      "poids": 16.0,
+      "reps": 12,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps",
+        "Fessiers",
+        "Core"
+      ],
+      "id": 34,
+      "timestamp": "2025-07-01T17:20:03.645822"
+    },
+    {
+      "exercice": "Squat Goblet",
+      "serie": 2,
+      "poids": 16.0,
+      "reps": 12,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps",
+        "Fessiers",
+        "Core"
+      ],
+      "id": 35,
+      "timestamp": "2025-07-01T17:20:11.954435"
+    },
+    {
+      "exercice": "Squat Goblet",
+      "serie": 3,
+      "poids": 16.0,
+      "reps": 12,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps",
+        "Fessiers",
+        "Core"
+      ],
+      "id": 36,
+      "timestamp": "2025-07-01T17:20:20.719032"
+    },
+    {
+      "exercice": "Squat Goblet",
+      "serie": 4,
+      "poids": 16.0,
+      "reps": 12,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps",
+        "Fessiers",
+        "Core"
+      ],
+      "id": 37,
+      "timestamp": "2025-07-01T17:20:30.899790"
+    },
+    {
+      "exercice": "Squat Bulgare",
+      "serie": 1,
+      "poids": 6.0,
+      "reps": 10,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps",
+        "Fessiers",
+        "Stabilisateurs"
+      ],
+      "id": 38,
+      "timestamp": "2025-07-01T17:20:40.160573"
+    },
+    {
+      "exercice": "Squat Bulgare",
+      "serie": 2,
+      "poids": 6.0,
+      "reps": 10,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps",
+        "Fessiers",
+        "Stabilisateurs"
+      ],
+      "id": 39,
+      "timestamp": "2025-07-01T17:21:46.449270"
+    },
+    {
+      "exercice": "Squat Bulgare",
+      "serie": 3,
+      "poids": 6.0,
+      "reps": 10,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps",
+        "Fessiers",
+        "Stabilisateurs"
+      ],
+      "id": 40,
+      "timestamp": "2025-07-01T17:21:56.458365"
+    },
+    {
+      "exercice": "Squat Bulgare",
+      "serie": 3,
+      "poids": 6.0,
+      "reps": 10,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps",
+        "Fessiers",
+        "Stabilisateurs"
+      ],
+      "id": 41,
+      "timestamp": "2025-07-01T17:35:27.563338"
+    },
+    {
+      "exercice": "Leg Extension unilatéral",
+      "serie": 1,
+      "poids": 12.0,
+      "reps": 12,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps"
+      ],
+      "id": 42,
+      "timestamp": "2025-07-01T17:35:39.740279"
+    },
+    {
+      "exercice": "Leg Extension unilatéral",
+      "serie": 2,
+      "poids": 12.0,
+      "reps": 12,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps"
+      ],
+      "id": 43,
+      "timestamp": "2025-07-01T17:35:57.216049"
+    },
+    {
+      "exercice": "Leg Extension unilatéral",
+      "serie": 3,
+      "poids": 12.0,
+      "reps": 12,
+      "rpe": 5,
+      "technique": "✅ Bonne",
+      "note": "",
+      "phase": "pre_op_semaine_-4_-3",
+      "muscles": [
+        "Quadriceps"
+      ],
+      "id": 44,
+      "timestamp": "2025-07-01T17:36:34.460157"
+    }
+  ]
 }
